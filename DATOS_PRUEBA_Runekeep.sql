@@ -1,6 +1,6 @@
 -- DATOS DE PRUEBA DE RUNEKEEP
 -- ADVERTENCIA: este script elimina los datos del esquema runekeep.
--- Ejecútalo únicamente en una base de desarrollo o pruebas.
+-- Ejecutar únicamente en una base de desarrollo o pruebas.
 
 BEGIN;
 
