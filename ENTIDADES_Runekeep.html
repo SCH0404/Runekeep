@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Runekeep | Entidades del reino</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+    :root{--ink:#271d48;--muted:#716995;--p950:#21153f;--p900:#301c62;--p800:#432783;--p700:#6841b5;--p500:#9c68e8;--lav:#eee8ff;--pink:#f27bc7;--gold:#ffd166;--mint:#78e0c0;--page:#faf8ff;--line:#e8e1f8;--shadow:0 12px 0 rgba(53,34,102,.08),0 22px 38px rgba(53,34,102,.12)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:var(--page);font:15px/1.55 "Space Grotesk","Segoe UI",sans-serif}
+    .hero{position:relative;overflow:hidden;color:#fff;background:linear-gradient(90deg,transparent 96%,rgba(255,255,255,.07) 96%),linear-gradient(0deg,transparent 96%,rgba(255,255,255,.07) 96%),radial-gradient(circle at 78% 18%,#7956cf 0 8%,transparent 8.5%),radial-gradient(circle at 86% 32%,#f27bc7 0 3%,transparent 3.5%),linear-gradient(135deg,var(--p950),var(--p800) 62%,#774cc2);background-size:32px 32px,32px 32px,auto,auto,auto;padding:46px 24px 70px}
+    .hero:after{content:"";position:absolute;inset:auto 0 0;height:28px;background:repeating-linear-gradient(90deg,var(--gold) 0 12px,transparent 12px 24px);opacity:.8;clip-path:polygon(0 40%,4% 40%,4% 0,8% 0,8% 40%,12% 40%,12% 75%,16% 75%,16% 40%,20% 40%,20% 0,24% 0,24% 40%,28% 40%,28% 75%,32% 75%,32% 40%,36% 40%,36% 0,40% 0,40% 40%,44% 40%,44% 75%,48% 75%,48% 40%,52% 40%,52% 0,56% 0,56% 40%,60% 40%,60% 75%,64% 75%,64% 40%,68% 40%,68% 0,72% 0,72% 40%,76% 40%,76% 75%,80% 75%,80% 40%,84% 40%,84% 0,88% 0,88% 40%,92% 40%,92% 75%,96% 75%,96% 40%,100% 40%,100% 100%,0 100%)}
+    .hero-inner,main{max-width:1180px;margin:0 auto}.brand{display:inline-flex;gap:10px;align-items:center;color:var(--gold);font-family:"Press Start 2P",monospace;font-size:11px;letter-spacing:.04em}.brand-mark{width:22px;height:22px;background:var(--gold);box-shadow:6px 6px 0 var(--pink),12px 0 0 #fff}
+    h1{max-width:830px;margin:24px 0 12px;color:#fff;font-family:"Press Start 2P",monospace;font-size:clamp(26px,5vw,52px);line-height:1.35;text-shadow:5px 5px 0 rgba(28,14,58,.42)}.subtitle{max-width:720px;margin:0;color:#e9ddff;font-size:17px}.hero-note{display:inline-block;margin-top:24px;padding:8px 12px;color:var(--p950);background:var(--gold);box-shadow:4px 4px 0 var(--p950);font-weight:700}
+    main{padding:28px 24px 64px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:-48px;position:relative}.stat{padding:18px 20px;border:2px solid #fff;border-radius:12px;background:#fff;box-shadow:var(--shadow)}.stat strong{display:block;color:var(--p800);font-size:30px;line-height:1}.stat span{color:var(--muted);font-size:13px}
+    .toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:36px 0 18px}.search{flex:1 1 320px;min-width:240px;border:2px solid var(--line);border-radius:10px;padding:14px 16px;color:var(--ink);background:#fff;font:inherit;outline:none}.search:focus{border-color:var(--p500);box-shadow:0 0 0 4px rgba(156,104,232,.15)}.filters{display:flex;flex-wrap:wrap;gap:7px}.filter{border:2px solid var(--line);border-radius:999px;padding:8px 12px;color:var(--muted);background:#fff;cursor:pointer;font:inherit;font-size:12px;font-weight:600}.filter:hover,.filter.active{color:#fff;background:var(--p800);border-color:var(--p800)}.result-count{width:100%;color:var(--muted);font-size:13px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}.card{display:flex;flex-direction:column;min-height:260px;overflow:hidden;border:2px solid var(--line);border-radius:12px;background:#fff;box-shadow:0 5px 0 rgba(104,65,181,.09);transition:transform .18s ease,box-shadow .18s ease}.card:hover{transform:translateY(-5px);box-shadow:0 9px 0 rgba(104,65,181,.18),0 20px 34px rgba(53,34,102,.13)}.card-top{height:8px;background:var(--p500)}.card[data-type="Principal"] .card-top{background:var(--pink)}.card[data-type="Catálogo"] .card-top,.card[data-type="Catálogo/oferta"] .card-top{background:var(--mint)}.card[data-type="Transaccional"] .card-top{background:var(--gold)}.card[data-type="Libro contable"] .card-top,.card[data-type="Auditoría"] .card-top{background:#ff8e9e}.card-body{padding:18px 18px 16px}.meta{display:flex;align-items:center;gap:8px;margin-bottom:12px}.badge{padding:4px 9px;border-radius:5px;color:var(--p800);background:var(--lav);font-size:11px;font-weight:800}.card h2{margin:0 0 8px;color:var(--p950);font-size:20px;line-height:1.2}.table-name{display:inline-block;margin-bottom:14px;padding:4px 8px;border-radius:5px;color:var(--p700);background:#f7f3ff;font:12px/1.4 ui-monospace,SFMono-Regular,Consolas,monospace}.description{margin:0;color:var(--muted);font-size:14px}.rf{margin-top:auto;padding:13px 18px;border-top:2px dashed var(--line);color:var(--muted);font-size:12px}.rf strong{color:var(--p800)}.empty{grid-column:1/-1;padding:48px;color:var(--muted);text-align:center}footer{margin-top:36px;color:var(--muted);text-align:center;font-size:12px}footer span{color:var(--p700);font-weight:700}
+    .site-tabs{display:flex;gap:10px;margin-top:30px}.site-tab{border:2px solid rgba(255,255,255,.35);border-radius:7px;padding:11px 15px;color:#eadfff;background:rgba(33,21,63,.35);cursor:pointer;font:600 13px "Space Grotesk",sans-serif}.site-tab:hover,.site-tab.active{color:var(--p950);background:var(--gold);border-color:var(--gold);box-shadow:4px 4px 0 var(--p950)}.view-panel[hidden]{display:none}
+    .relations{margin:42px 0 34px;padding:26px;border:2px solid #ded2fa;border-radius:16px;background:linear-gradient(135deg,#fff,#f8f3ff);box-shadow:var(--shadow)}.relations-head{display:flex;justify-content:space-between;gap:20px;align-items:end;flex-wrap:wrap;margin-bottom:20px}.section-kicker{margin:0 0 7px;color:var(--p700);font-family:"Press Start 2P",monospace;font-size:10px;letter-spacing:.04em}.relations h2{margin:0;color:var(--p950);font-size:28px;line-height:1.15}.relations-intro{max-width:570px;margin:0;color:var(--muted);font-size:14px}.relation-groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}.relation-group{padding:16px;border:2px solid var(--line);border-radius:11px;background:#fff}.relation-group h3{display:flex;align-items:center;gap:8px;margin:0 0 13px;color:var(--p800);font-size:16px}.realm-dot{width:12px;height:12px;background:var(--pink);box-shadow:4px 4px 0 var(--gold)}.relation-list{display:grid;gap:8px}.relation{display:grid;grid-template-columns:1fr auto 1fr;gap:7px;align-items:center;padding:9px;border-radius:7px;background:#faf8ff;font-size:12px}.relation-table{overflow:hidden;color:var(--p700);font-family:ui-monospace,SFMono-Regular,Consolas,monospace;text-overflow:ellipsis;white-space:nowrap}.relation-arrow{color:var(--pink);font-size:17px;font-weight:800}.relation-label{grid-column:1/-1;color:var(--muted);font-size:11px}.relations-note{margin:17px 0 0;padding-top:14px;border-top:2px dashed var(--line);color:var(--muted);font-size:12px}.relations-note strong{color:var(--p800)}
+    .erd-intro{margin:42px 0 18px}.erd-intro h2{margin:0;color:var(--p950);font-size:28px}.erd-intro p{max-width:720px;color:var(--muted)}.erd-scroll{overflow:auto;padding:8px 8px 22px;border:2px solid #ded2fa;border-radius:16px;background:linear-gradient(135deg,#241544,#39206d);box-shadow:var(--shadow)}.erd-canvas{position:relative;width:1120px;height:680px;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:28px 28px}.erd-lines{position:absolute;inset:0;width:1120px;height:680px;overflow:visible}.erd-line{fill:none;stroke:#e6b8ff;stroke-width:5;stroke-linecap:round;filter:drop-shadow(0 2px 0 #160b2c)}.erd-line.dashed{stroke-dasharray:10 8;stroke:#ffd166}.erd-label{fill:#fff;font:700 14px "Space Grotesk",sans-serif;paint-order:stroke;stroke:#241544;stroke-width:5px;stroke-linejoin:round}.erd-table{position:absolute;width:190px;overflow:hidden;border:3px solid #c889f4;border-radius:7px;background:#fff;box-shadow:6px 6px 0 rgba(12,5,28,.5)}.erd-table h3{margin:0;padding:9px 11px;color:#fff;background:linear-gradient(90deg,var(--p700),#9c68e8);font:11px "Press Start 2P",monospace;line-height:1.5}.erd-table ul{margin:0;padding:8px 11px;list-style:none;color:var(--ink);font:12px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace}.erd-table li:before{content:"";display:inline-block;width:7px;height:7px;margin:0 7px 1px 0;background:var(--mint)}.erd-table li.pk:before{background:var(--gold);box-shadow:3px 0 0 var(--pink)}.erd-key{display:flex;gap:14px;margin:14px 0;color:#eadfff;font-size:12px}.erd-key span:before{content:"";display:inline-block;width:10px;height:10px;margin-right:6px;background:var(--mint)}.erd-key .pk:before{background:var(--gold);box-shadow:3px 0 0 var(--pink)}@media(max-width:720px){.hero{padding:36px 18px 60px}main{padding:22px 18px 48px}.stats{grid-template-columns:repeat(2,1fr);margin-top:-34px}.brand{font-size:9px}.site-tabs{flex-wrap:wrap}.relations{padding:18px}.relation{grid-template-columns:1fr auto 1fr;font-size:11px}.erd-intro h2{font-size:23px}}@media print{.hero{padding:24px}.toolbar,.site-tabs{display:none}.stats{margin-top:18px}.card,.relations,.erd-scroll{break-inside:avoid;box-shadow:none}}
+  </style>
+</head>
+<body>
+  <header class="hero"><div class="hero-inner">
+    <div class="brand"><span class="brand-mark"></span> RUNEKEEP DATABASE QUEST</div>
+    <h1>Entidades del reino</h1>
+    <p class="subtitle">Mapa del universo de datos de Runekeep: usuarios, biblioteca, inventario, comunidades y todos los sistemas que hacen vivir la aventura.</p>
+    <div class="hero-note">✦ Catálogo de entidades</div>
+    <nav class="site-tabs" aria-label="Vistas del modelo">
+      <button class="site-tab active" data-view="catalog-view">▦ Catálogo de entidades</button>
+      <button class="site-tab" data-view="erd-view">⌘ ERD de relaciones</button>
+    </nav>
+  </div></header>
+  <main>
+    <div id="catalog-view" class="view-panel">
+    <section class="stats" aria-label="Resumen del modelo">
+      <div class="stat"><strong id="total">0</strong><span>entidades documentadas</span></div>
+      <div class="stat"><strong id="tables">0</strong><span>tablas principales</span></div>
+      <div class="stat"><strong id="categories">0</strong><span>clasificaciones</span></div>
+      <div class="stat"><strong>RF</strong><span>trazabilidad funcional</span></div>
+    </section>
+    <section class="toolbar" aria-label="Herramientas del catálogo">
+      <input id="search" class="search" type="search" placeholder="Buscar una entidad, tabla o habilidad…" aria-label="Buscar entidades">
+      <div id="filters" class="filters"></div><div id="result-count" class="result-count" aria-live="polite"></div>
+    </section>
+    <section class="relations" aria-labelledby="relations-title">
+      <div class="relations-head">
+        <div><p class="section-kicker">Mapa de conexiones</p><h2 id="relations-title">Cómo se conecta el reino</h2></div>
+        <p class="relations-intro">Las tablas se organizan por dominios. Cada flecha representa una relación de referencia o dependencia del modelo relacional.</p>
+      </div>
+      <div id="relation-groups" class="relation-groups"></div>
+      <p class="relations-note"><strong>Lectura rápida:</strong> las tablas principales originan la información; las asociativas conectan entidades; las dependientes guardan detalles que pertenecen a un usuario, juego o transacción.</p>
+    </section>
+    <section id="entity-grid" class="grid" aria-label="Entidades del modelo"></section>
+    </div>
+    <section id="erd-view" class="view-panel" hidden aria-labelledby="erd-title">
+      <div class="erd-intro"><p class="section-kicker">Vista de arquitectura</p><h2 id="erd-title">ERD · conexiones principales</h2><p>Una lectura visual de las tablas centrales de Runekeep. Las líneas gruesas representan relaciones entre claves; el color dorado marca conexiones opcionales.</p></div>
+      <div class="erd-key"><span class="pk">PK clave primaria</span><span>FK clave foránea</span><span>━━ relación principal</span></div>
+      <div class="erd-scroll">
+        <div class="erd-canvas">
+          <svg class="erd-lines" viewBox="0 0 1120 680" aria-label="Líneas de relación entre tablas">
+            <path class="erd-line" d="M190 82H300"></path><text class="erd-label" x="226" y="72">1:1</text>
+            <path class="erd-line" d="M190 226H270Q300 226 300 190V82"></path><text class="erd-label" x="218" y="214">1:N</text>
+            <path class="erd-line" d="M810 82H900"></path><text class="erd-label" x="838" y="72">1:N</text>
+            <path class="erd-line" d="M810 226H850Q900 226 900 190V82"></path><text class="erd-label" x="832" y="214">N:M</text>
+            <path class="erd-line" d="M190 370H300V226"></path><text class="erd-label" x="205" y="358">1:N</text>
+            <path class="erd-line" d="M490 370V290"></path><text class="erd-label" x="501" y="334">1:N</text>
+            <path class="erd-line" d="M810 370H900V226"></path><text class="erd-label" x="832" y="358">1:N</text>
+            <path class="erd-line" d="M190 514H300V370"></path><text class="erd-label" x="205" y="502">1:N</text>
+            <path class="erd-line" d="M490 514H650V370"></path><text class="erd-label" x="535" y="502">1:N</text>
+            <path class="erd-line dashed" d="M810 514H900V370"></path><text class="erd-label" x="835" y="502">0..1</text>
+            <path class="erd-line" d="M1010 514V370"></path><text class="erd-label" x="1022" y="450">1:N</text>
+            <path class="erd-line" d="M650 514V600H490V514"></path><text class="erd-label" x="555" y="622">1:N</text>
+          </svg>
+          <article class="erd-table" style="left:0;top:40px"><h3>usuarios</h3><ul><li class="pk">usuario_id PK</li><li>nombre_usuario</li><li>correo</li></ul></article>
+          <article class="erd-table" style="left:300px;top:40px"><h3>perfiles</h3><ul><li class="pk">usuario_id PK/FK</li><li>visibilidad_perfil</li><li>zona_horaria</li></ul></article>
+          <article class="erd-table" style="left:620px;top:40px"><h3>videojuegos</h3><ul><li class="pk">videojuego_id PK</li><li>titulo</li><li>edicion</li></ul></article>
+          <article class="erd-table" style="left:900px;top:40px"><h3>videojuegos_generos</h3><ul><li class="pk">videojuego_id PK/FK</li><li class="pk">genero_id PK/FK</li></ul></article>
+          <article class="erd-table" style="left:0;top:184px"><h3>entradas_biblioteca</h3><ul><li class="pk">entrada_id PK</li><li>usuario_id FK</li><li>videojuego_id FK</li></ul></article>
+          <article class="erd-table" style="left:400px;top:184px"><h3>generos</h3><ul><li class="pk">genero_id PK</li><li>nombre</li></ul></article>
+          <article class="erd-table" style="left:620px;top:184px"><h3>plataformas</h3><ul><li class="pk">plataforma_id PK</li><li>nombre</li><li>tipo</li></ul></article>
+          <article class="erd-table" style="left:900px;top:184px"><h3>sesiones_juego</h3><ul><li class="pk">sesion_juego_id PK</li><li>entrada_id FK</li><li>duracion_segundos</li></ul></article>
+          <article class="erd-table" style="left:0;top:328px"><h3>cuentas_plataforma</h3><ul><li class="pk">cuenta_plataforma_id PK</li><li>usuario_id FK</li><li>plataforma_id FK</li></ul></article>
+          <article class="erd-table" style="left:400px;top:328px"><h3>sincronizaciones</h3><ul><li class="pk">sincronizacion_id PK</li><li>cuenta_plataforma_id FK</li><li>estado</li></ul></article>
+          <article class="erd-table" style="left:620px;top:328px"><h3>publicaciones</h3><ul><li class="pk">publicacion_id PK</li><li>autor_id FK</li><li>comunidad_id FK</li></ul></article>
+          <article class="erd-table" style="left:900px;top:328px"><h3>comentarios</h3><ul><li class="pk">comentario_id PK</li><li>publicacion_id FK</li><li>autor_id FK</li></ul></article>
+          <article class="erd-table" style="left:400px;top:472px"><h3>comunidades</h3><ul><li class="pk">comunidad_id PK</li><li>creador_id FK</li><li>visibilidad</li></ul></article>
+          <article class="erd-table" style="left:620px;top:472px"><h3>membresias_comunidad</h3><ul><li class="pk">comunidad_id PK/FK</li><li class="pk">usuario_id PK/FK</li><li>rol</li></ul></article>
+          <article class="erd-table" style="left:900px;top:472px"><h3>notificaciones</h3><ul><li class="pk">notificacion_id PK</li><li>usuario_id FK</li><li>tipo</li></ul></article>
+        </div>
+      </div>
+    </section>
+    <footer><span>RUNEKEEP</span> · Modelo de datos · Documento de presentación</footer>
+  </main>
+  <script id="entity-data" type="text/plain">
+Entidad;Tabla principal;Clasificación;Responsabilidad y relaciones;RF relacionados
+Usuario;usuarios;Principal;Cuenta autenticable, propietaria de perfil, biblioteca, inventario, cartera y actividad social;1-18 30 157-161 198-200 211-212 226-240 241-257
+Perfil;perfiles;Dependiente 1:1;Descripción, avatar, privacidad, zona horaria y mascota seleccionada;19-30 203 230 239
+Sesión de autenticación;sesiones_autenticacion;Dependiente;Sesión revocable de un usuario, identificada por hash de token;9-10 17 20 269
+Token de recuperación;tokens_recuperacion;Dependiente;Token de un solo uso y con vencimiento para recuperar contraseña;11 270
+Videojuego;videojuegos;Catálogo;Ficha canónica, con edición diferenciada y relaciones con géneros, plataformas y empresas;53-72 191-197 268
+Identificador externo de videojuego;identificadores_externos_videojuego;Asociativa;Identificador de proveedor externo para evitar duplicados de catálogo durante importaciones;53 71 92-94
+Videojuego personal;videojuegos_personales;Dependiente;Ficha privada creada por un usuario cuando el juego no está en el catálogo;262
+Género;generos;Catálogo;Clasificación reutilizable de videojuegos;58 62 178 191-197
+Videojuego-género;videojuegos_generos;Asociativa;Resuelve la relación muchos a muchos entre videojuegos y géneros;58 62
+Plataforma;plataformas;Catálogo;Plataforma externa o local asociable a juegos y cuentas vinculadas;59 63 89-100 179-180
+Videojuego-plataforma;videojuegos_plataformas;Asociativa;Disponibilidad, edición/requisitos por plataforma de un videojuego;59 63 71-72
+Empresa;empresas;Catálogo;Desarrolladora o distribuidora de videojuegos;268
+Crédito de videojuego;creditos_videojuegos;Asociativa;Vincula videojuego y empresa con función desarrolladora o distribuidora;268
+Entrada de biblioteca;entradas_biblioteca;Asociativa;Vincula usuario a un juego canónico o personal;24-25 29 31-53 68-70 91-99 173-182 193-194 201 214 216 228 262
+Posesión de juego;posesiones_juego;Dependiente;Versión/plataforma y cuenta externa de origen asociadas a una entrada de biblioteca;89-99
+Cuenta de plataforma;cuentas_plataforma;Asociativa;Vincula usuario con identidad externa y credenciales protegidas;89-100
+Sincronización;sincronizaciones;Dependiente;Ejecución, estado y errores de sincronización de una cuenta vinculada;92-100
+Sesión de juego;sesiones_juego;Dependiente;Inicio, fin y duración de juego de una entrada;84-88 178 182 218-219
+Configuración de lanzamiento;configuraciones_lanzamiento;Dependiente;Ruta y argumentos locales de lanzamiento, opcionalmente por plataforma;73-83 218
+Etiqueta personal;etiquetas;Dependiente;Etiqueta definida por usuario para organizar entradas de biblioteca;51
+Etiqueta de entrada;etiquetas_entradas;Asociativa;Asocia etiquetas personales a entradas de biblioteca;51
+Logro;logros;Catálogo;Definición de logro y objetivo;184-190
+Logro de usuario;logros_usuarios;Asociativa;Progreso y fecha de desbloqueo por usuario;27 183-189
+Artículo cosmético;articulos_cosmeticos;Catálogo;Mascota, accesorio o fondo, con tipo, compatibilidad y recurso visual;101-124 258-261
+Artículo de inventario;articulos_inventario;Asociativa;Instancia adquirida por un usuario, con origen y fecha de adquisición;101-123 206-207 220-221 233-234 258-261
+Mascota del usuario;mascotas_usuarios;Dependiente;Instancia de mascota del inventario, con apodo;101-111 206 215 220 233 260
+Fondo equipado;fondos_equipados;Asociativa;Fondo del inventario equipado en el perfil de su propietario;110 116-120 261
+Accesorio equipado;accesorios_equipados;Asociativa;Accesorio propio equipado en una mascota y ranura compatible;110 116-120 261
+Paquete de moneda;paquetes_moneda;Catálogo;Cantidad y precio real con moneda ISO de un paquete;129 134 147-156 258 263-264
+Publicación de tienda;publicaciones_tienda;Catálogo/oferta;Oferta activa y período de disponibilidad de un artículo o paquete;124 134-146 258-260
+Cartera;carteras;Dependiente 1:1;Saldo materializado de moneda virtual de un usuario;125-133 138-140 147-155
+Compra de tienda;compras_tienda;Transaccional;Compra de una oferta con moneda virtual y estado de entrega;138-145 260
+Pago;pagos;Transaccional;Pago externo de paquete con importe, moneda, proveedor y estado;147-156 263-264
+Movimiento de cartera;movimientos_cartera;Libro contable;Crédito, débito o ajuste idempotente asociado a compra/pago;127-133 138-143 147-155
+Seguidor;seguimientos;Asociativa;Relación dirigida entre dos usuarios;157-161
+Bloqueo;bloqueos;Asociativa;Relación dirigida que impide interacciones entre usuarios y contenido no autorizado;170 272
+Comunidad;comunidades;Principal;Grupo con creador, visibilidad, reglas y miembros;241-257
+Membresía;membresias_comunidad;Asociativa;Solicitud/estado/rol de un usuario en una comunidad;245-250 256
+Interés;intereses;Catálogo;Tema reutilizable para clasificar comunidades;243-244
+Interés de comunidad;comunidades_intereses;Asociativa;Relación muchos a muchos entre comunidades e intereses;243-244
+Publicación;publicaciones;Principal;Contenido de un usuario, opcionalmente relacionado con juego y comunidad;162-165 169 171-172 205 232 251-257 265-267
+Reacción;reacciones;Asociativa;Un Me gusta por usuario y publicación;165-166 255 265
+Comentario;comentarios;Principal;Respuesta de usuario a publicación, opcionalmente anidada;167-168 255-257 266-267
+Reporte;reportes;Principal/moderación;Reporte de exactamente una comunidad, publicación o comentario;171 257 266-267
+Acción de moderación;acciones_moderacion;Auditoría;Acción y resolución realizadas por personal autorizado;267
+Notificación;notificaciones;Dependiente;Aviso de actividad dirigido a un usuario;210 224 237-238
+Dispositivo push;dispositivos_push;Dependiente;Token de dispositivo para notificaciones push, revocable;237-238 271
+Preferencias de recomendación;preferencias_recomendacion;Dependiente;Preferencias de recomendación del usuario;191-197
+Recomendación oculta;recomendaciones_ocultas;Asociativa;Juego que un usuario decidió ocultar de recomendaciones;196
+Actividad de usuario;actividad_usuario;Auditoría;Eventos consultables del historial de actividad;183
+  </script>
+  <script>
+    const raw=document.getElementById("entity-data").textContent.trim();
+    const entities=raw.split(/\r?\n/).slice(1).map(line=>{const [name,table,type,description,rf]=line.split(";");return{name,table,type,description,rf}});
+    const grid=document.getElementById("entity-grid"),search=document.getElementById("search"),filters=document.getElementById("filters");let activeType="Todas";
+    const types=["Todas",...new Set(entities.map(entity=>entity.type))];
+    filters.innerHTML=types.map(type=>`<button class="filter${type==="Todas"?" active":""}" data-type="${type}">${type}</button>`).join("");
+    document.getElementById("total").textContent=entities.length;document.getElementById("tables").textContent=new Set(entities.map(entity=>entity.table)).size;document.getElementById("categories").textContent=types.length-1;
+    const relationGroups=[
+      {name:"Identidad y acceso",relations:[["usuarios","perfiles","1:1 · tiene"],["usuarios","sesiones_autenticacion","1:N · autentica"],["usuarios","tokens_recuperacion","1:N · recupera"],["usuarios","carteras","1:1 · posee"],["usuarios","dispositivos_push","1:N · registra"]]},
+      {name:"Catálogo y biblioteca",relations:[["usuarios","entradas_biblioteca","1:N · organiza"],["videojuegos","entradas_biblioteca","1:N · cataloga"],["videojuegos","videojuegos_generos","1:N · clasifica"],["generos","videojuegos_generos","1:N · agrupa"],["videojuegos","videojuegos_plataformas","1:N · ofrece"],["entradas_biblioteca","sesiones_juego","1:N · registra"],["cuentas_plataforma","sincronizaciones","1:N · sincroniza"]]},
+      {name:"Inventario y tienda",relations:[["articulos_cosmeticos","articulos_inventario","1:N · instancia"],["usuarios","articulos_inventario","1:N · posee"],["articulos_inventario","mascotas_usuarios","1:0..1 · instancia"],["perfiles","mascotas_usuarios","0..1:0..1 · selecciona"],["publicaciones_tienda","compras_tienda","1:N · vende"],["compras_tienda","movimientos_cartera","0..1:0..1 · debita"],["pagos","movimientos_cartera","0..1:0..1 · acredita"]]},
+      {name:"Comunidad y actividad",relations:[["usuarios","comunidades","1:N · crea"],["comunidades","membresias_comunidad","1:N · recibe"],["usuarios","membresias_comunidad","1:N · participa"],["usuarios","publicaciones","1:N · escribe"],["publicaciones","comentarios","1:N · recibe"],["publicaciones","reacciones","1:N · recibe"],["reportes","acciones_moderacion","1:N · registra"],["usuarios","notificaciones","1:N · recibe"]]}
+    ];
+    document.getElementById("relation-groups").innerHTML=relationGroups.map(group=>`<article class="relation-group"><h3><span class="realm-dot"></span>${group.name}</h3><div class="relation-list">${group.relations.map(([from,to,label])=>`<div class="relation"><span class="relation-table">${from}</span><span class="relation-arrow">→</span><span class="relation-table">${to}</span><span class="relation-label">${label}</span></div>`).join("")}</div></article>`).join("");
+    document.querySelectorAll(".site-tab").forEach(tab=>tab.addEventListener("click",()=>{document.querySelectorAll(".site-tab").forEach(item=>item.classList.toggle("active",item===tab));document.querySelectorAll(".view-panel").forEach(panel=>panel.hidden=panel.id!==tab.dataset.view)}));
+    function safe(value){return value.replace(/[&<>"']/g,character=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[character]))}
+    function render(){const query=search.value.trim().toLocaleLowerCase("es");const visible=entities.filter(entity=>{const matchesType=activeType==="Todas"||entity.type===activeType;const text=`${entity.name} ${entity.table} ${entity.description}`.toLocaleLowerCase("es");return matchesType&&text.includes(query)});document.getElementById("result-count").textContent=`Mostrando ${visible.length} de ${entities.length} entidades`;grid.innerHTML=visible.length?visible.map(entity=>`<article class="card" data-type="${safe(entity.type)}"><div class="card-top"></div><div class="card-body"><div class="meta"><span class="badge">${safe(entity.type)}</span></div><h2>${safe(entity.name)}</h2><span class="table-name">${safe(entity.table)}</span><p class="description">${safe(entity.description)}</p></div><div class="rf"><strong>RF relacionados:</strong> ${safe(entity.rf)}</div></article>`).join(""):'<div class="empty">No se encontraron entidades en esta misión.</div>'}
+    filters.addEventListener("click",event=>{const button=event.target.closest("button");if(!button)return;activeType=button.dataset.type;filters.querySelectorAll(".filter").forEach(item=>item.classList.toggle("active",item===button));render()});search.addEventListener("input",render);render();
+  </script>
+</body>
+</html>
